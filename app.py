@@ -24,7 +24,7 @@ class MyModel(nn.Module):
         return self.fc(x)
 
 model = MyModel()
-model.load_state_dict(torch.load(MODEL_PATH, map_location="cpu"))
+model = torch.load(MODEL_PATH, map_location="cpu")
 model.eval()
 
 
