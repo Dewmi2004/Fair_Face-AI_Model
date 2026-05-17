@@ -1,0 +1,43 @@
+{
+  "model_name": "FairVisionCNN_v3",
+  "num_classes": 9,
+  "img_size": 160,
+  "age_names": [
+    "0-2",
+    "3-9",
+    "10-19",
+    "20-29",
+    "30-39",
+    "40-49",
+    "50-59",
+    "60-69",
+    "more than 70"
+  ],
+  "gender_names": [
+    "Male",
+    "Female"
+  ],
+  "race_names": [
+    "East Asian",
+    "Indian",
+    "Black",
+    "White",
+    "Middle Eastern",
+    "Latino_Hispanic",
+    "Southeast Asian"
+  ],
+  "mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "strategy": "Balanced Subset + Focal Loss + Soft Weights + WeightedSampler + TTA",
+  "baseline_acc": 0.5807011137484024,
+  "mit1_acc": 0.5696549205769582,
+  "mit2_acc": 0.5359685959466861
+}
