@@ -24,7 +24,7 @@ class MyModel(nn.Module):
         return self.fc(x)
 
 model = MyModel()
-model = torch.load(MODEL_PATH, map_location="cpu")
+model = torch.load(MODEL_PATH, map_location="cpu", weights_only=False)
 model.eval()
 
 
