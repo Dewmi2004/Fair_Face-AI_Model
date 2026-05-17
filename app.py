@@ -4,20 +4,35 @@ from torchvision import transforms
 from PIL import Image
 import gdown
 import os
+import torch.nn as nn
 
 MODEL_PATH = "fairvision_deployed.pth"
 
+
 if not os.path.exists(MODEL_PATH):
-    url = "https://drive.google.com/drive/folders/1Tsbg-K9YnxYM5tAUi2dIAF9b2fAsyLKK?usp=sharing"
+    url = "https://drive.google.com/uc?id=1hAzoRxS9YxISqCjLnFp2wj6Aict7dh8-"
     gdown.download(url, MODEL_PATH, quiet=False)
 
-model = torch.load(MODEL_PATH, map_location=torch.device('cpu'))
+
+class MyModel(nn.Module):
+    def __init__(self):
+        super(MyModel, self).__init__()
+        self.fc = nn.Linear(160 * 160 * 3, 2) 
+
+    def forward(self, x):
+        x = x.view(x.size(0), -1)
+        return self.fc(x)
+
+model = MyModel()
+model.load_state_dict(torch.load(MODEL_PATH, map_location="cpu"))
 model.eval()
+
 
 transform = transforms.Compose([
     transforms.Resize((160, 160)),
     transforms.ToTensor()
 ])
+
 
 st.title("FairFace AI Model 👤")
 st.write("Upload an image to predict")
@@ -34,4 +49,7 @@ if uploaded_file:
         output = model(img)
         prediction = torch.argmax(output, dim=1)
 
-    st.success(f"Prediction: {prediction.item()}")
+    
+    labels = ["Class 0", "Class 1"]  
+
+    st.success(f"Prediction: {labels[prediction.item()]}")
